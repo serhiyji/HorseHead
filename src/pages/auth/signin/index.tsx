@@ -71,7 +71,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in into to Horse Progect
+            Sign in
           </Typography>
           <Box
             component="form"
@@ -118,6 +118,9 @@ export default function SignIn() {
             <Grid container>
               <Grid item xs>
                 <Link to="/">Forgot password?</Link>
+              </Grid>
+              <Grid item xs>
+                <Link to="/registrationuniversity">Registration university</Link>
               </Grid>
             </Grid>
           </Box>

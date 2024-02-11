@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 
 // Import services
-import { login, setAccessToken, setRefreshToken, logout, removeTokens } from "../../../services/api-user-service";
+import { login, setAccessToken, setRefreshToken, logout, removeTokens, RegistrationUniversityUser } from "../../../services/api-user-service";
 
 export const LoginUser = (user: any) => {
     return async (dispatch: Dispatch<UserActions>) => {
@@ -29,6 +29,22 @@ export const LoginUser = (user: any) => {
         }
     }
 };
+
+export const CreateUser = (user: any) => {
+    return async (dispatch: Dispatch<UserActions>) => {
+        try {
+            await RegistrationUniversityUser(user);
+            dispatch({
+                type: UserActionTypes.CREATEUNIVERSITYUSER_SUCCESS, payload: { message: "University user has been added" }
+            });
+        }
+        catch (ex) {
+            dispatch({
+                type: UserActionTypes.SERVER_ERROR, payload: "Unknown error!"
+            });
+        }
+    }
+}
 
 export const LogOut = (id: string) => {
     return async (dispatch: Dispatch<UserActions>) => {

@@ -78,8 +78,7 @@ const requests = {
 const User = {
     login: (user: any) => requests.post(`/login`, user),
     logout: (userId: string) => requests.get(`/logout?userId=` + userId),
-    getallusers: () => requests.get("/getall"),
-    createuser: (user: any) => requests.post("/createuser", user),
+    registrationuniversity: (user: any) => requests.post("/registrationuniversity", user),
 }
 
 export async function login(user: any) {
@@ -97,6 +96,19 @@ export async function login(user: any) {
 
 export async function logout(userId: string) {
     const data = await User.logout(userId)
+        .then((response) => {
+            return {
+                response
+            }
+        })
+        .catch((error) => {
+            return error.response
+        })
+    return data
+}
+
+export async function RegistrationUniversityUser(user: any) {
+    const data = await User.registrationuniversity(user)
         .then((response) => {
             return {
                 response
