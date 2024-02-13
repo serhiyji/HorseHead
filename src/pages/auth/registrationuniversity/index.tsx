@@ -15,14 +15,6 @@ import Grid from "@mui/material/Grid";
 import { Link, Navigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
-        .required("Required")
-        .min(2, "Minimum length is 2 characters")
-        .max(128, "Maximum length is 128 characters"),
-    lastName: Yup.string()
-        .required("Required")
-        .min(2, "Minimum length is 2 characters")
-        .max(128, "Maximum length is 128 characters"),
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string()
         .min(6, "Password must be at least 6 characters")
@@ -39,8 +31,6 @@ const RegistrationUniversity = () => {
     const { CreateUser } = useActions();
     const formik = useFormik({
         initialValues: {
-            firstName: "",
-            lastName: "",
             email: "",
             role: "",
             password: "",
@@ -69,7 +59,7 @@ const RegistrationUniversity = () => {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Registration university account
+                        Реєстрація Університетського акаунту
                     </Typography>
                     <Box
                         component="form"
@@ -79,34 +69,8 @@ const RegistrationUniversity = () => {
                     >
                         <TextField
                             margin="normal"
-                            id="firstName"
-                            label="First Name"
-                            name="firstName"
-                            value={formik.values.firstName}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-                            helperText={formik.touched.firstName && formik.errors.firstName}
-                            //sx={{ mr: 1, flex: 1 }}
-                            fullWidth
-                        />
-                        <TextField
-                            margin="normal"
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
-                            value={formik.values.lastName}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-                            helperText={formik.touched.lastName && formik.errors.lastName}
-                            //sx={{ ml: 1, flex: 1 }}
-                            fullWidth
-                        />
-                        <TextField
-                            margin="normal"
                             id="email"
-                            label="Email Address"
+                            label="Елекктронна пошта"
                             name="email"
                             autoComplete="email"
                             value={formik.values.email}
@@ -119,7 +83,7 @@ const RegistrationUniversity = () => {
                         <TextField
                             margin="normal"
                             id="password"
-                            label="Password"
+                            label="Пароль"
                             type="password"
                             name="password"
                             autoComplete="new-password"
@@ -133,7 +97,7 @@ const RegistrationUniversity = () => {
                         <TextField
                             margin="normal"
                             id="confirmPassword"
-                            label="Confirm Password"
+                            label="Підтвердження паролю"
                             type="password"
                             name="confirmPassword"
                             autoComplete="new-password"
@@ -155,11 +119,11 @@ const RegistrationUniversity = () => {
                             sx={{ mt: 1, ml: 'auto', flex: 1 }}
                             //fullWidth
                         >
-                            Register
+                            Зареєструвати
                         </Button>
                         <Grid container>
                             <Grid item xs sx={{mt: 1}}>
-                                <Link to="/signin">Sign In</Link>
+                                <Link to="/signin">Повернутися до входу</Link>
                             </Grid>
                         </Grid>
                     </Box>

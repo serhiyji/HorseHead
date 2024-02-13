@@ -71,7 +71,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Вхід
           </Typography>
           <Box
             component="form"
@@ -83,7 +83,7 @@ export default function SignIn() {
               margin="normal"
               fullWidth
               id="email"
-              label="Email Address"
+              label="Електронна пошта"
               name="email"
               autoComplete="email"
               autoFocus
@@ -97,7 +97,7 @@ export default function SignIn() {
               margin="normal"
               fullWidth
               name="password"
-              label="Password"
+              label="Пароль"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -117,10 +117,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="/">Forgot password?</Link>
+                <Link to="/">Забули пароль?</Link>
               </Grid>
+            </Grid>
+            <Grid container>
               <Grid item xs>
-                <Link to="/registrationuniversity">Registration university</Link>
+                <Link to="/registrationuniversity">Реєстрація для Університету</Link>
               </Grid>
             </Grid>
           </Box>
