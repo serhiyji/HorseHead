@@ -1,8 +1,13 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./index.css";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const NotFound = () => {
+  const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
+  if (!isAuth) {
+    return <Navigate to="/signin" />;
+  }
   return (
     <div id="notfound">
       <div className="notfound">

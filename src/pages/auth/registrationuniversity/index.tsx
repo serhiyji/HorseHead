@@ -13,6 +13,8 @@ import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Link, Navigate } from "react-router-dom";
+import { Avatar } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Required"),
@@ -32,7 +34,6 @@ const RegistrationUniversity = () => {
     const formik = useFormik({
         initialValues: {
             email: "",
-            role: "",
             password: "",
             confirmPassword: "",
         },
@@ -58,6 +59,9 @@ const RegistrationUniversity = () => {
                         alignItems: "center",
                     }}
                 >
+                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
                     <Typography component="h1" variant="h5">
                         Реєстрація Університетського акаунту
                     </Typography>
