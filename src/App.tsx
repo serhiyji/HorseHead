@@ -6,6 +6,7 @@ import { useTypedSelector } from "./hooks/useTypedSelector";
 import NotFound from "./pages/notFound";
 import RegistrationUniversity from './pages/auth/registrationuniversity';
 import DashboardLayout from './container/dashboardLayout';
+import AllCompetences from './pages/competence/getall';
 
 function App() {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -18,7 +19,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<NotFound />} />
               <Route path='competence'>
-                <Route index element={<NotFound />} />
+                <Route index element={<AllCompetences />} />
               </Route>
               <Route path="NotFound" element={<NotFound/>}/>
             </Route>

@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import UserReducer from "./userReducer"; 
+import CompetenceReducer from "./competenceReducer";
 
 
 export const rootReducer = combineReducers({
-    UserReducer, 
+    UserReducer,
+    CompetenceReducer
 })
 
 export type  RootState = ReturnType<typeof rootReducer>;
