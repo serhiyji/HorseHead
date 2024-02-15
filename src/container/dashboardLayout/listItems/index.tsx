@@ -17,7 +17,7 @@ export const MinistryMenu = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <Link to="/dashboard/competence">
+            <Link to="/dashboard/competence" style={{ textDecoration: "none" }}>
                 <ListItemText primary="Компетенції" 
                 sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
             </Link>
@@ -26,7 +26,7 @@ export const MinistryMenu = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <Link to="">
+            <Link to="" style={{ textDecoration: "none" }}>
                 <ListItemText primary="Програмні результати навчання"
                 sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
             </Link>
@@ -35,7 +35,7 @@ export const MinistryMenu = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <Link to="">
+            <Link to="" style={{ textDecoration: "none" }}>
                 <ListItemText primary="Стандарт міністерства" 
                 sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
             </Link>

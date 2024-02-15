@@ -7,6 +7,8 @@ import NotFound from "./pages/notFound";
 import RegistrationUniversity from './pages/auth/registrationuniversity';
 import DashboardLayout from './container/dashboardLayout';
 import AllCompetences from './pages/competence/getall';
+import UpdateCompetence from './pages/competence/update';
+import CreateCompetence from './pages/competence/create';
 
 function App() {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -20,6 +22,8 @@ function App() {
               <Route index element={<NotFound />} />
               <Route path='competence'>
                 <Route index element={<AllCompetences />} />
+                <Route path='update' element={<UpdateCompetence />} />
+                <Route path='create' element={<CreateCompetence />} />
               </Route>
               <Route path="NotFound" element={<NotFound/>}/>
             </Route>

@@ -151,6 +151,7 @@ export async function UpdateCompetence(competence: any) {
 }
 
 export async function DeleteCompetence(id: number) {
+    console.log(id + "DEL3");
     const data = await Competence.delete(id)
         .then((response) => {
             return {
@@ -161,6 +162,17 @@ export async function DeleteCompetence(id: number) {
             return error.response
         })
     return data
+}
+
+export async function setSelectedCompetence(competence:any) {
+    competence = JSON.stringify(competence);
+    window.localStorage.setItem("selectedCompetence", competence);
+}
+
+export function getSelectedCompetence() {
+    let selectedCompetence: any = window.localStorage.getItem("selectedCompetence");
+    selectedCompetence = JSON.parse(selectedCompetence);
+    return selectedCompetence;
 }
 
 export function refreshAccessToken() {
