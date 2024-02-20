@@ -10,10 +10,12 @@ const initialState: CompetenceState = {
 
 const CompetenceReducer = (state = initialState, action: CompetenceActions): CompetenceState => {
     switch (action.type) {
-        case CompetenceActionTypes.GETALL_REQUEST:
+        case CompetenceActionTypes.GETALL_COMPETENCE_REQUEST:
             return { ...state, allCompetence: action.payload.allCompetence };
-        case CompetenceActionTypes.GETCOMPETENCEBUID_SUCCESS:
+        case CompetenceActionTypes.GET_COMPETENCE_SUCCESS:
             return {...state, selectedCompetence: action.payload.selectedCompetence}
+        case CompetenceActionTypes.CREATE_COMPETENCE_SUCCESS:
+            return {...state}
         default:
             return state;
     }

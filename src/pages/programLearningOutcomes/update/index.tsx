@@ -16,42 +16,50 @@ import { Navigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     code: Yup.string()
-        .required("Required")
-        .max(16, "Maximum length is 16 characters"),
+        .required("Required"),
     name: Yup.string()
         .required("Required")
-        .min(1, "Minimum length is 1 characters")
-        .max(256, "Maximum length is 256 characters"),
+        .min(10, "Minimum length is 2 characters")
+        .max(256, "Maximum length is 128 characters"),
     description: Yup.string()
         .required("Required")
-        .max(1024, "Maximum length is 1024 characters")
+        .max(1024, "Maximum length is 128 characters")
 });
 
 const defaultTheme = createTheme();
 
-const CreateCompetence = () => {
-    const { CreateCompetenceA, GetAllCompetenceA } = useActions();
+const UpdateProgramLearningOutcomes = () => {
+    const { UpdateProgramLearningOutcomesA, GetAllProgramLearningOutcomesA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
-    const { user } = useTypedSelector((score) => score.UserReducer);
+    const { selectedProgramLearningOutcomes } = useTypedSelector((store) => store.ProgramLearningOutcomesReducer);
 
     const formik = useFormik({
         initialValues: {
-            id: "",
-            code: "",
-            name: "",
-            description: "",
-            appUserId: user.Id,
+            id: selectedProgramLearningOutcomes?.id || "",
+            code: selectedProgramLearningOutcomes?.code || "",
+            name: selectedProgramLearningOutcomes?.name || "",
+            description: selectedProgramLearningOutcomes?.description || "",
+            appUserId: selectedProgramLearningOutcomes?.appUserId || ""
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            CreateCompetenceA(values);
-            GetAllCompetenceA();
+            UpdateProgramLearningOutcomesA(values);
+            GetAllProgramLearningOutcomesA();
             setIsRedirect(true);
         },
     });
+    useEffect(() => {
+        formik.setValues({
+            id: selectedProgramLearningOutcomes.id,
+            code: selectedProgramLearningOutcomes.code,
+            name: selectedProgramLearningOutcomes.name,
+            description: selectedProgramLearningOutcomes.description,
+            appUserId: selectedProgramLearningOutcomes.appUserId
+        });
+    }, []);
     if(isRedirect)
     {
-        return <Navigate to="/dashboard/competence"/>
+        return <Navigate to="/dashboard/programlearningoutcomes"/>
     }else
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -66,7 +74,7 @@ const CreateCompetence = () => {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Створення компетенції
+                        Оновлення програмних результатів навчання
                     </Typography>
                     <Box
                         component="form"
@@ -111,9 +119,9 @@ const CreateCompetence = () => {
                         <Button
                             type="submit"
                             variant="contained"
-                            sx={{ mt: 1, ml: 'auto'}}
+                            sx={{ mt: 1, ml: 'auto' }}
                         >
-                            Створити
+                            Оновити
                         </Button>
                     </Box>
                 </Box>
@@ -122,4 +130,4 @@ const CreateCompetence = () => {
     );
 };
 
-export default CreateCompetence;
+export default UpdateProgramLearningOutcomes;

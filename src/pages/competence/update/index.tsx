@@ -36,10 +36,10 @@ const UpdateCompetence = () => {
     const formik = useFormik({
         initialValues: {
             id: selectedCompetence?.id || "",
-            code: selectedCompetence?.firstName || "",
-            name: selectedCompetence?.lastName || "",
-            description: selectedCompetence?.email || "",
-            appUserId: selectedCompetence?.phoneNumber || ""
+            code: selectedCompetence?.code || "",
+            name: selectedCompetence?.name || "",
+            description: selectedCompetence?.description || "",
+            appUserId: selectedCompetence?.appUserId || ""
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {

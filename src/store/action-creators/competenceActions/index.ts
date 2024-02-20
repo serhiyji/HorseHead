@@ -2,7 +2,7 @@ import { CompetenceActionTypes, CompetenceActions } from "../../reducers/compete
 
 import { Dispatch } from "redux"
 
-import { GetAllCompetence, DeleteCompetence, setSelectedCompetence, UpdateCompetence, CreateCompetence } from "../../../services/api-competence-service"
+import { GetAllCompetence, DeleteCompetence, setSelectedCompetence, UpdateCompetence, CreateCompetence, GetByUserIdCompetence } from "../../../services/api-competence-service"
 
 export const GetAllCompetenceA = () => {
     return async (dispatch: Dispatch<CompetenceActions>) => {
@@ -10,16 +10,26 @@ export const GetAllCompetenceA = () => {
         const { response } = data;
         if (response.success) {
             dispatch({
-                type: CompetenceActionTypes.GETALL_REQUEST, payload: { allCompetence: response.payload }
+                type: CompetenceActionTypes.GETALL_COMPETENCE_REQUEST, payload: { allCompetence: response.payload }
             });
         }
     }
 };
 
-export const DeleteCompetenceA = (id: number) => {
-    console.log(id + "DEL1");
+export const GetCompetenceByUserIdA = (userId: string) => {
     return async (dispatch: Dispatch<CompetenceActions>) => {
-        console.log(id + "DEL2");
+        const data = await GetByUserIdCompetence(userId);
+        const { response } = data;
+        if (response.success) {
+            dispatch({
+                type: CompetenceActionTypes.GETALL_COMPETENCE_REQUEST, payload: { allCompetence: response.payload }
+            });
+        }
+    }
+}
+
+export const DeleteCompetenceA = (id: number) => {
+    return async (dispatch: Dispatch<CompetenceActions>) => {
         await DeleteCompetence(id);
         GetAllCompetenceA()(dispatch)
     }
@@ -27,7 +37,7 @@ export const DeleteCompetenceA = (id: number) => {
 
 export const SetSelectedCompetence = (competence: any) => {
     return async (dispatch: Dispatch<CompetenceActions>) => {
-        dispatch({ type: CompetenceActionTypes.GETCOMPETENCEBUID_SUCCESS, payload: {selectedCompetence: competence} });
+        dispatch({ type: CompetenceActionTypes.GET_COMPETENCE_SUCCESS, payload: {selectedCompetence: competence} });
         setSelectedCompetence(competence);
     };
 };
@@ -43,12 +53,12 @@ export const CreateCompetenceA = (competence: any) => {
         try {
             await CreateCompetence(competence);
             dispatch({
-                type: CompetenceActionTypes.CREATECOMPETENCE_SUCCESS, payload: { message: "Competence has been added" }
+                type: CompetenceActionTypes.CREATE_COMPETENCE_SUCCESS, payload: { message: "Competence has been added" }
             });
         }
         catch (ex) {
             dispatch({
-                type: CompetenceActionTypes.CREATECOMPETENCE_SUCCESS, payload: "Unknown error!"
+                type: CompetenceActionTypes.CREATE_COMPETENCE_SUCCESS, payload: "Unknown error!"
             });
         }
     }

@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Update';
 import IconButton from '@mui/material/IconButton';
 
-interface CompetenceData {
+interface ProgramLearningOutcomesData {
     id: number,
     code: string
     name: string,
@@ -16,12 +16,12 @@ interface CompetenceData {
     appUserId: string,
 }
 
-const AllCompetences = () => {
-    const { GetAllCompetenceA, GetCompetenceByUserIdA, DeleteCompetenceA, SetSelectedCompetence } = useActions();
+const AllProgramLearningOutcomess = () => {
+    const { GetAllProgramLearningOutcomesA, GetProgramLearningOutcomesByUserIdA, DeleteProgramLearningOutcomesA, SetSelectedProgramLearningOutcomes } = useActions();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isRedirect, setIsRedirect] = useState(false);
-    const { allCompetence } = useTypedSelector((store) => store.CompetenceReducer);
+    const { allProgramLearningOutcomes } = useTypedSelector((store) => store.ProgramLearningOutcomesReducer);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
     const handleOpenModal = (id: number) => {
@@ -35,50 +35,50 @@ const AllCompetences = () => {
 
     const handleDelete = () => {
         if (selectedId !== null) {
-            DeleteCompetenceA(selectedId);
+            DeleteProgramLearningOutcomesA(selectedId);
             setIsModalOpen(false);
         }
     };
 
-    const handleUpdate = (competence: CompetenceData) => {
-        SetSelectedCompetence(competence);
+    const handleUpdate = (programLearningOutcomes: ProgramLearningOutcomesData) => {
+        SetSelectedProgramLearningOutcomes(programLearningOutcomes);
         setIsRedirect(true);
     };
 
     useEffect(() => {
-        // GetAllCompetenceA();
-        GetCompetenceByUserIdA(user.Id);
+        // GetAllProgramLearningOutcomesA();
+        GetProgramLearningOutcomesByUserIdA(user.Id);
     }, []);
 
     if (isRedirect) {
-        return <Navigate to="/dashboard/competence/update" />;
+        return <Navigate to="/dashboard/programlearningoutcomes/update" />;
     } else {
         return (
             <div style={{ padding: "20px" }}>
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
-                    <Link to="/dashboard/competence/create" style={{ textDecoration: "none" }}>
+                    <Link to="/dashboard/programlearningoutcomes/create" style={{ textDecoration: "none" }}>
                         <Button variant="contained" color="primary">
-                            Створити компетенцію
+                            Створити програмний результат навчання
                         </Button>
                     </Link>
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly" }}>
-                    {allCompetence.map((competence: CompetenceData) => (
-                        <Card key={competence.id} style={{ margin: "10px", width: "calc(50% - 20px)" }}>
+                    {allProgramLearningOutcomes.map((programLearningOutcomes: ProgramLearningOutcomesData) => (
+                        <Card key={programLearningOutcomes.id} style={{ margin: "10px", width: "calc(50% - 20px)" }}>
                             <CardContent>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <h3>{competence.code}</h3>
+                                    <h3>{programLearningOutcomes.code}</h3>
                                     <div>
-                                        <IconButton onClick={() => handleOpenModal(competence.id)} aria-label="delete">
+                                        <IconButton onClick={() => handleOpenModal(programLearningOutcomes.id)} aria-label="delete">
                                             <DeleteIcon />
                                         </IconButton>
-                                        <IconButton onClick={() => handleUpdate(competence)} aria-label="update">
+                                        <IconButton onClick={() => handleUpdate(programLearningOutcomes)} aria-label="update">
                                             <UpdateIcon />
                                         </IconButton>
                                     </div>
                                 </div>
-                                <h3 style={{ marginTop: "1px" }}>{competence.name}</h3>
-                                <p>{competence.description}</p>
+                                <h3 style={{ marginTop: "1px" }}>{programLearningOutcomes.name}</h3>
+                                <p>{programLearningOutcomes.description}</p>
                             </CardContent>
                         </Card>
                     ))}
@@ -92,7 +92,7 @@ const AllCompetences = () => {
                 >
                     <Fade in={isModalOpen}>
                         <div style={{ backgroundColor: "#fff", border: "2px solid #000", boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)", padding: 20, maxWidth: 400, margin: "auto", marginTop: "20vh", textAlign: "center" }}>
-                            <h2 id="transition-modal-title">Увага всі звязки з Освітніми програмами буде розірвано. Підтвердити видалення</h2>
+                            <h2 id="transition-modal-title">Увага всі звязки з Програмними результатами навчання буде розірвано. Підтвердити видалення</h2>
                             <div style={{ marginTop: "20px" }}>
                                 <Button variant="contained" onClick={handleDelete} style={{ marginRight: "10px", color: "#fff", backgroundColor: "#000" }}>Так</Button>
                                 <Button variant="contained" onClick={handleCloseModal} style={{ color: "#fff", backgroundColor: "#000" }}>Ні</Button>
@@ -105,4 +105,4 @@ const AllCompetences = () => {
     }
 }
 
-export default AllCompetences;
+export default AllProgramLearningOutcomess;

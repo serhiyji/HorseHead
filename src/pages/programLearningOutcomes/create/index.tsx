@@ -29,8 +29,8 @@ const validationSchema = Yup.object().shape({
 
 const defaultTheme = createTheme();
 
-const CreateCompetence = () => {
-    const { CreateCompetenceA, GetAllCompetenceA } = useActions();
+const CreateProgramLearningOutcomes = () => {
+    const { CreateProgramLearningOutcomesA, GetAllProgramLearningOutcomesA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
@@ -44,14 +44,14 @@ const CreateCompetence = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            CreateCompetenceA(values);
-            GetAllCompetenceA();
+            CreateProgramLearningOutcomesA(values);
+            GetAllProgramLearningOutcomesA();
             setIsRedirect(true);
         },
     });
     if(isRedirect)
     {
-        return <Navigate to="/dashboard/competence"/>
+        return <Navigate to="/dashboard/programlearningoutcomes"/>
     }else
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -66,7 +66,7 @@ const CreateCompetence = () => {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Створення компетенції
+                        Створення програмну результат навчання
                     </Typography>
                     <Box
                         component="form"
@@ -122,4 +122,4 @@ const CreateCompetence = () => {
     );
 };
 
-export default CreateCompetence;
+export default CreateProgramLearningOutcomes;

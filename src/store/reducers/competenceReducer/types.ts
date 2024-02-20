@@ -7,27 +7,27 @@ export interface CompetenceState{
 }
 
 export enum CompetenceActionTypes {
-    GETALL_REQUEST = "GETALL_REQUEST",
-    GETCOMPETENCEBUID_SUCCESS = "GETCOMPETENCEBUID_SUCCESS",
-    CREATECOMPETENCE_SUCCESS = "CREATECOMPETENCE_SUCCESS"
+    GETALL_COMPETENCE_REQUEST = "GETALLCOMPETENCE_REQUEST",
+    GET_COMPETENCE_SUCCESS = "GETCOMPETENCE_SUCCESS",
+    CREATE_COMPETENCE_SUCCESS = "CREATECOMPETENCE_SUCCESS"
 }
 
-interface GetAllAction {
-    type: CompetenceActionTypes.GETALL_REQUEST,
+interface GetAllCompetenceAction {
+    type: CompetenceActionTypes.GETALL_COMPETENCE_REQUEST,
     payload: any
 }
 
 interface GetCompetenceByIdAction {
-    type: CompetenceActionTypes.GETCOMPETENCEBUID_SUCCESS,
+    type: CompetenceActionTypes.GET_COMPETENCE_SUCCESS,
     payload: any
 }
 
 interface CreateCompetenceAction {
-    type: CompetenceActionTypes.CREATECOMPETENCE_SUCCESS,
+    type: CompetenceActionTypes.CREATE_COMPETENCE_SUCCESS,
     payload: any
 }
 
 export type CompetenceActions = 
-| GetAllAction
+| GetAllCompetenceAction
 | GetCompetenceByIdAction
 | CreateCompetenceAction

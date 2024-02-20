@@ -26,7 +26,7 @@ export const MinistryMenu = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <Link to="" style={{ textDecoration: "none" }}>
+            <Link to="programlearningoutcomes" style={{ textDecoration: "none" }}>
                 <ListItemText primary="Програмні результати навчання"
                 sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
             </Link>
