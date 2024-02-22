@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useActions } from "../../../hooks/useActions";
-import { Card, CardActions, CardContent, Button, Modal, Backdrop, Fade } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { Button, Modal, Card, Space, Pagination } from "antd";
 import { Link } from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/Delete';
-import UpdateIcon from '@mui/icons-material/Update';
-import IconButton from '@mui/material/IconButton';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Navigate } from "react-router-dom";
 
 interface CompetenceData {
     id: number,
@@ -17,11 +15,12 @@ interface CompetenceData {
 }
 
 const AllCompetences = () => {
-    const { GetAllCompetenceA, GetCompetenceByUserIdA, DeleteCompetenceA, SetSelectedCompetence } = useActions();
+    const { GetAllCompetenceA, DeleteCompetenceA, SetSelectedCompetence } = useActions();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isRedirect, setIsRedirect] = useState(false);
-    const { allCompetence } = useTypedSelector((store) => store.CompetenceReducer);
+    const [currentPage, setCurrentPage] = useState(1);
+    const { allCompetence, pageNumber, pageSize, totalCount, countPages } = useTypedSelector((store) => store.CompetenceReducer);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
     const handleOpenModal = (id: number) => {
@@ -46,9 +45,12 @@ const AllCompetences = () => {
     };
 
     useEffect(() => {
-        // GetAllCompetenceA();
-        GetCompetenceByUserIdA(user.Id);
-    }, []);
+        GetAllCompetenceA(currentPage, 2, user.Id);
+    }, [currentPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     if (isRedirect) {
         return <Navigate to="/dashboard/competence/update" />;
@@ -57,48 +59,47 @@ const AllCompetences = () => {
             <div style={{ padding: "20px" }}>
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
                     <Link to="/dashboard/competence/create" style={{ textDecoration: "none" }}>
-                        <Button variant="contained" color="primary">
+                        <Button type="primary">
                             Створити компетенцію
                         </Button>
                     </Link>
                 </div>
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly" }}>
+                <Space direction="vertical" style={{ width: "100%" }}>
                     {allCompetence.map((competence: CompetenceData) => (
-                        <Card key={competence.id} style={{ margin: "10px", width: "calc(50% - 20px)" }}>
-                            <CardContent>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <h3>{competence.code}</h3>
-                                    <div>
-                                        <IconButton onClick={() => handleOpenModal(competence.id)} aria-label="delete">
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <IconButton onClick={() => handleUpdate(competence)} aria-label="update">
-                                            <UpdateIcon />
-                                        </IconButton>
-                                    </div>
+                        <Card key={competence.id} style={{ width: "100%" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3>{competence.code}</h3>
+                                <div>
+                                    <Button type="text" icon={<DeleteOutlined />} onClick={() => handleOpenModal(competence.id)} />
+                                    <Button type="text" icon={<EditOutlined />} onClick={() => handleUpdate(competence)} />
                                 </div>
-                                <h3 style={{ marginTop: "1px" }}>{competence.name}</h3>
-                                <p>{competence.description}</p>
-                            </CardContent>
+                            </div>
+                            <h3 style={{ marginTop: "1px" }}>{competence.name}</h3>
+                            <p>{competence.description}</p>
                         </Card>
                     ))}
-                </div>
+                </Space>
+                <Pagination
+                    style={{ marginTop: '20px', textAlign: 'center' }}
+                    current={currentPage}
+                    total={totalCount}
+                    pageSize={pageSize}
+                    onChange={handlePageChange}
+                />
                 <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    open={isModalOpen}
-                    onClose={handleCloseModal}
-                    closeAfterTransition
+                    title="Увага"
+                    visible={isModalOpen}
+                    onCancel={handleCloseModal}
+                    footer={[
+                        <Button key="back" onClick={handleCloseModal}>
+                            Ні
+                        </Button>,
+                        <Button key="submit" type="primary" onClick={handleDelete}>
+                            Так
+                        </Button>,
+                    ]}
                 >
-                    <Fade in={isModalOpen}>
-                        <div style={{ backgroundColor: "#fff", border: "2px solid #000", boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.16)", padding: 20, maxWidth: 400, margin: "auto", marginTop: "20vh", textAlign: "center" }}>
-                            <h2 id="transition-modal-title">Увага всі звязки з Освітніми програмами буде розірвано. Підтвердити видалення</h2>
-                            <div style={{ marginTop: "20px" }}>
-                                <Button variant="contained" onClick={handleDelete} style={{ marginRight: "10px", color: "#fff", backgroundColor: "#000" }}>Так</Button>
-                                <Button variant="contained" onClick={handleCloseModal} style={{ color: "#fff", backgroundColor: "#000" }}>Ні</Button>
-                            </div>
-                        </div>
-                    </Fade>
+                    <p>Всі зв'язки з Освітніми програмами буде розірвано. Підтвердити видалення?</p>
                 </Modal>
             </div>
         );

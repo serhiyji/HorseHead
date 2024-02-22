@@ -1,70 +1,38 @@
-import * as React from "react";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+import React from "react";
 import { Link } from "react-router-dom";
+import { Menu } from "antd";
+import {
+  AppstoreOutlined,
+  BarChartOutlined,
+  CloudOutlined,
+  ShopOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+
+const { SubMenu } = Menu;
 
 export const MinistryMenu = (
-    <React.Fragment>
-        <ListItemButton>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <Link to="/dashboard/competence" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Компетенції" 
-                sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
-            </Link>
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <Link to="programlearningoutcomes" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Програмні результати навчання"
-                sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
-            </Link>
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <Link to="" style={{ textDecoration: "none" }}>
-                <ListItemText primary="Стандарт міністерства" 
-                sx={{ whiteSpace: 'normal', wordWrap: 'break-word' }} />
-            </Link>
-        </ListItemButton>
-    </React.Fragment>
+  <Menu mode="inline" inlineIndent={20}>
+    <Menu.Item key="1" icon={<AppstoreOutlined />}>
+      <Link to="/dashboard/competence">Компетенції</Link>
+    </Menu.Item>
+    <Menu.Item key="2" icon={<AppstoreOutlined />}>
+      <Link to="/dashboard/programlearningoutcomes">Програмні результати навчання</Link>
+    </Menu.Item>
+    <Menu.Item key="4" icon={<AppstoreOutlined />}>
+      <Link to="">Стандарт міністерства</Link>
+    </Menu.Item>
+  </Menu>
+  
 );
 
 export const UniversityMenu = (
-    <React.Fragment>
-        <ListSubheader component="div" inset>
-            Saved reports
-        </ListSubheader>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
-        </ListItemButton>
-    </React.Fragment>
+  <Menu mode="inline" inlineIndent={20}>
+    <SubMenu key="sub1" icon={<UserOutlined />} title="Saved reports">
+      <Menu.Item key="4">Current month</Menu.Item>
+      <Menu.Item key="5">Last quarter</Menu.Item>
+      <Menu.Item key="6">Year-end sale</Menu.Item>
+    </SubMenu>
+  </Menu>
 );

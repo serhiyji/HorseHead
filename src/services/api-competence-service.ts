@@ -76,7 +76,7 @@ const requests = {
 }
 
 const Competence = {
-    getall: () => requests.get("getall"),
+    getall: (page: number, pageSize: number, userId: string) => requests.get("getall?page=" + page + "&pageSize=" + pageSize + "&userId=" + userId),
     getbyuserid: (userid: string) => requests.get("getbyuserid?userid=" + userid),
     getbyid: (id: number) => requests.get("getbyid?id=" + id),
 
@@ -85,8 +85,8 @@ const Competence = {
     delete: (id: number) => requests.post("delete", id),
 }
 
-export async function GetAllCompetence() {
-    const data = await Competence.getall()
+export async function GetAllCompetence(page: number, pageSize: number, userId: string) {
+    const data = await Competence.getall(page, pageSize, userId)
         .then((response) => {
             return {
                 response

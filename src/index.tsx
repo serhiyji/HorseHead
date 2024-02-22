@@ -1,6 +1,6 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { ToastContainer } from "react-toastify";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
@@ -15,14 +15,12 @@ if (token) {
     AuthUser(token, "Data loaded from lockalStorrage", store.dispatch);
 }
 
-const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
-);
-root.render(
+ReactDOM.render(
     <Provider store={store}>
         <Router>
             <ToastContainer autoClose={5000} />
             <App />
         </Router>
-    </Provider>
+    </Provider>,
+    document.getElementById("root")
 );

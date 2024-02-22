@@ -3,7 +3,11 @@ export interface CompetenceState{
     loading: false,
     error: null,
     selectedCompetence: any,
-    allCompetence: []
+    allCompetence: [],
+    pageNumber: number,
+    pageSize: number,
+    totalCount: number,
+    countPages: number,
 }
 
 export enum CompetenceActionTypes {

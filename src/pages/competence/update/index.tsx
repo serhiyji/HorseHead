@@ -32,6 +32,7 @@ const UpdateCompetence = () => {
     const { UpdateCompetenceA, GetAllCompetenceA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
     const { selectedCompetence } = useTypedSelector((store) => store.CompetenceReducer);
+    const { user } = useTypedSelector((score) => score.UserReducer);
 
     const formik = useFormik({
         initialValues: {
@@ -44,7 +45,7 @@ const UpdateCompetence = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             UpdateCompetenceA(values);
-            GetAllCompetenceA();
+            //GetAllCompetenceA(1, 10, user.Id);
             setIsRedirect(true);
         },
     });

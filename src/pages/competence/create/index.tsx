@@ -45,7 +45,7 @@ const CreateCompetence = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             CreateCompetenceA(values);
-            GetAllCompetenceA();
+            //GetAllCompetenceA(1, 2, user.Id);
             setIsRedirect(true);
         },
     });
