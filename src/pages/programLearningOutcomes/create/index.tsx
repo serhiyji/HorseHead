@@ -45,7 +45,7 @@ const CreateProgramLearningOutcomes = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             CreateProgramLearningOutcomesA(values);
-            GetAllProgramLearningOutcomesA();
+            //GetAllProgramLearningOutcomesA();
             setIsRedirect(true);
         },
     });

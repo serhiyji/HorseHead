@@ -3,7 +3,11 @@ export interface ProgramLearningOutcomesState{
     loading: false,
     error: null,
     selectedProgramLearningOutcomes: any,
-    allProgramLearningOutcomes: []
+    allProgramLearningOutcomes: [],
+    pageNumber: number,
+    pageSize: number,
+    totalCount: number,
+    countPages: number,
 }
 
 export enum ProgramLearningOutcomesActionTypes {

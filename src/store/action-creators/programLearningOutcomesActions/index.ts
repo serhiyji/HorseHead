@@ -4,13 +4,20 @@ import { Dispatch } from "redux"
 
 import { GetAllProgramLearningOutcomes, DeleteProgramLearningOutcomes, setSelectedProgramLearningOutcomes, UpdateProgramLearningOutcomes, CreateProgramLearningOutcomes, GetByUserIdProgramLearningOutcomes } from "../../../services/api-ProgramLearningOutcomes-service"
 
-export const GetAllProgramLearningOutcomesA = () => {
+export const GetAllProgramLearningOutcomesA = (page: number, pageSize: number, userId: string) => {
     return async (dispatch: Dispatch<ProgramLearningOutcomesActions>) => {
-        const data = await GetAllProgramLearningOutcomes();
+        const data = await GetAllProgramLearningOutcomes(page, pageSize, userId);
         const { response } = data;
         if (response.success) {
             dispatch({
-                type: ProgramLearningOutcomesActionTypes.GETALL_PROGRAMLEARNINGOUTSOMES_REQUEST, payload: { allProgramLearningOutcomes: response.payload }
+                type: ProgramLearningOutcomesActionTypes.GETALL_PROGRAMLEARNINGOUTSOMES_REQUEST, 
+                payload: { 
+                    allProgramLearningOutcomes: response.payload,
+                    pageNumber: response.pageNumber,
+                    pageSize: response.pageSize,
+                    totalCount: response.totalCount,
+                    countPages: response.countPages,
+                 }
             });
         }
     }
@@ -31,7 +38,7 @@ export const GetProgramLearningOutcomesByUserIdA = (userId: string) => {
 export const DeleteProgramLearningOutcomesA = (id: number) => {
     return async (dispatch: Dispatch<ProgramLearningOutcomesActions>) => {
         await DeleteProgramLearningOutcomes(id);
-        GetAllProgramLearningOutcomesA()(dispatch)
+        //GetAllProgramLearningOutcomesA()(dispatch)
     }
 }
 

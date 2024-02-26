@@ -44,7 +44,7 @@ const UpdateProgramLearningOutcomes = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             UpdateProgramLearningOutcomesA(values);
-            GetAllProgramLearningOutcomesA();
+            //GetAllProgramLearningOutcomesA();
             setIsRedirect(true);
         },
     });

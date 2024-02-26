@@ -76,7 +76,7 @@ const requests = {
 }
 
 const ProgramLearningOutcomes = {
-    getall: () => requests.get("getall"),
+    getall: (page: number, pageSize: number, userId: string) => requests.get("getall?page=" + page + "&pageSize=" + pageSize + "&userId=" + userId),
     getbyuserid: (userid: string) => requests.get("getbyuserid?userid=" + userid),
     getbyid: (id: number) => requests.get("getbyid?id=" + id),
 
@@ -85,8 +85,8 @@ const ProgramLearningOutcomes = {
     delete: (id: number) => requests.post("delete", id),
 }
 
-export async function GetAllProgramLearningOutcomes() {
-    const data = await ProgramLearningOutcomes.getall()
+export async function GetAllProgramLearningOutcomes(page: number, pageSize: number, userId: string) {
+    const data = await ProgramLearningOutcomes.getall(page, pageSize, userId)
         .then((response) => {
             return {
                 response

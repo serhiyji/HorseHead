@@ -5,13 +5,23 @@ const initialState: ProgramLearningOutcomesState = {
     loading: false,
     error: null,
     selectedProgramLearningOutcomes: {},
-    allProgramLearningOutcomes: []
+    allProgramLearningOutcomes: [],
+    pageNumber: 0,
+    pageSize: 0,
+    totalCount: 0,
+    countPages: 0,
 }
 
 const ProgramLearningOutcomesReducer = (state = initialState, action: ProgramLearningOutcomesActions): ProgramLearningOutcomesState => {
     switch (action.type) {
         case ProgramLearningOutcomesActionTypes.GETALL_PROGRAMLEARNINGOUTSOMES_REQUEST:
-            return { ...state, allProgramLearningOutcomes: action.payload.allProgramLearningOutcomes };
+            return { ...state, 
+                        allProgramLearningOutcomes: action.payload.allProgramLearningOutcomes,
+                        pageNumber: action.payload.pageNumber,
+                        pageSize: action.payload.pageSize,
+                        totalCount: action.payload.totalCount,
+                        countPages: action.payload.countPages,
+                    };
         case ProgramLearningOutcomesActionTypes.GETBUID_PROGRAMLEARNINGOUTSOMES_SUCCESS:
             return {...state, selectedProgramLearningOutcomes: action.payload.selectedProgramLearningOutcomes}
         case ProgramLearningOutcomesActionTypes.CREATE_PROGRAMLEARNINGOUTSOMES_SUCCESS:
