@@ -6,22 +6,19 @@ import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Navigate } from "react-router-dom";
 
-interface ProgramLearningOutcomesData {
+interface SpecialtyData {
     id: number,
     code: string
     name: string,
-    description: string,
-    appUserId: string,
 }
 
-const AllProgramLearningOutcomess = () => {
-    const { GetAllProgramLearningOutcomesA, GetProgramLearningOutcomesByUserIdA, DeleteProgramLearningOutcomesA, SetSelectedProgramLearningOutcomes } = useActions();
+const AllSpecialtys = () => {
+    const { GetAllSpecialtyA, DeleteSpecialtyA, SetSelectedSpecialty } = useActions();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isRedirect, setIsRedirect] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const { allProgramLearningOutcomes, pageNumber, pageSize, totalCount, countPages } = useTypedSelector((store) => store.ProgramLearningOutcomesReducer);
-    const { user } = useTypedSelector((score) => score.UserReducer);
+    const { allSpecialty, pageNumber, pageSize, totalCount, countPages } = useTypedSelector((store) => store.SpecialtyReducer);
 
     const handleOpenModal = (id: number) => {
         setSelectedId(id);
@@ -34,18 +31,18 @@ const AllProgramLearningOutcomess = () => {
 
     const handleDelete = () => {
         if (selectedId !== null) {
-            DeleteProgramLearningOutcomesA(selectedId);
+            DeleteSpecialtyA(selectedId);
             setIsModalOpen(false);
         }
     };
 
-    const handleUpdate = (programLearningOutcomes: ProgramLearningOutcomesData) => {
-        SetSelectedProgramLearningOutcomes(programLearningOutcomes);
+    const handleUpdate = (specialty: SpecialtyData) => {
+        SetSelectedSpecialty(specialty);
         setIsRedirect(true);
     };
 
     useEffect(() => {
-        GetAllProgramLearningOutcomesA(currentPage, 2, user.Id);
+        GetAllSpecialtyA(currentPage, 2,);
     }, [currentPage]);
 
     const handlePageChange = (page: number) => {
@@ -53,30 +50,29 @@ const AllProgramLearningOutcomess = () => {
     };
 
     if (isRedirect) {
-        return <Navigate to="/dashboard/programlearningoutcomes/update" />;
+        return <Navigate to="/dashboard/specialty/update" />;
     } else {
         return (
             <div style={{ padding: "20px" }}>
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
-                    <Link to="/dashboard/programlearningoutcomes/create" style={{ textDecoration: "none" }}>
-                        <Button color="primary">
-                            Створити програмний результат навчання
+                    <Link to="/dashboard/specialty/create" style={{ textDecoration: "none" }}>
+                        <Button type="primary">
+                            Створити компетенцію
                         </Button>
                     </Link>
                 </div>
                 <Space direction="vertical" style={{ width: "100%" }}>
-                    {allProgramLearningOutcomes.map((programLearningOutcomes: ProgramLearningOutcomesData) => (
-                        <Card key={programLearningOutcomes.id} style={{ width: "100%" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h3>{programLearningOutcomes.code}</h3>
-                            <div>
-                                <Button type="text" icon={<DeleteOutlined />} onClick={() => handleOpenModal(programLearningOutcomes.id)} />
-                                <Button type="text" icon={<EditOutlined />} onClick={() => handleUpdate(programLearningOutcomes)} />
+                    {allSpecialty.map((specialty: SpecialtyData) => (
+                        <Card key={specialty.id} style={{ width: "100%" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3>{specialty.code}</h3>
+                                <div>
+                                    <Button type="text" icon={<DeleteOutlined />} onClick={() => handleOpenModal(specialty.id)} />
+                                    <Button type="text" icon={<EditOutlined />} onClick={() => handleUpdate(specialty)} />
+                                </div>
                             </div>
-                        </div>
-                        <h3 style={{ marginTop: "1px" }}>{programLearningOutcomes.name}</h3>
-                        <p>{programLearningOutcomes.description}</p>
-                    </Card>
+                            <h3 style={{ marginTop: "1px" }}>{specialty.name}</h3>
+                        </Card>
                     ))}
                 </Space>
                 <Pagination
@@ -106,4 +102,4 @@ const AllProgramLearningOutcomess = () => {
     }
 }
 
-export default AllProgramLearningOutcomess;
+export default AllSpecialtys;

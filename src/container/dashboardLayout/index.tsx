@@ -7,6 +7,7 @@ import {
 import { Link, Outlet } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
+import { MinistryMenu, UniversityMenu } from "./listItems";
 
 const { Header, Content, Sider } = Layout;
 
@@ -42,19 +43,22 @@ const DashboardLayout = () => {
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           {user.role === "Ministry" && (
             <>
-              <Menu.Item key="1" icon={<AppstoreOutlined />}>
+              <Menu.Item key="1">
                 <Link to="/dashboard/competence">Компетенції</Link>
               </Menu.Item>
-              <Menu.Item key="2" icon={<AppstoreOutlined />}>
-                <Link to="programlearningoutcomes">Програмні результати навчання</Link>
+              <Menu.Item key="2">
+                <Link to="/dashboard/programlearningoutcomes">Програмні результати навчання</Link>
               </Menu.Item>
-              <Menu.Item key="3" icon={<AppstoreOutlined />}>
+              <Menu.Item key="3">
+                <Link to="/dashboard/specialty">Спеціальність</Link>
+              </Menu.Item>
+              <Menu.Item key="4">
                 <Link to="">Стандарт міністерства</Link>
               </Menu.Item>
             </>
           )}
           {user.role === "University" && (
-            <Menu.SubMenu key="sub1" icon={<UserOutlined />} title="Saved reports">
+            <Menu.SubMenu key="sub1" title="Saved reports">
               <Menu.Item key="4">Current month</Menu.Item>
               <Menu.Item key="5">Last quarter</Menu.Item>
               <Menu.Item key="6">Year-end sale</Menu.Item>

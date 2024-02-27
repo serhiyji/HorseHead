@@ -12,6 +12,7 @@ import CreateCompetence from './pages/competence/create';
 import AllProgramLearningOutcomess from './pages/programLearningOutcomes/getall';
 import CreateProgramLearningOutcomes from './pages/programLearningOutcomes/create';
 import UpdateProgramLearningOutcomes from './pages/programLearningOutcomes/update';
+import AllSpecialtys from './pages/specialty/getall';
 
 function App() {
   const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -19,27 +20,43 @@ function App() {
   return (
     <Routes>
       {isAuth && (
+          <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<NotFound />} />
+
+          {/* Competence / Компетенції */}
+          <Route path='competence'>
+            <Route index element={<AllCompetences />} />
+            <Route path='getall' element={<AllCompetences />} />
+            <Route path='update' element={<UpdateCompetence />} />
+            <Route path='create' element={<CreateCompetence />} />
+          </Route>
+
+          {/* ProgramLearningOutcomes / Програмні результати навчання */}
+          <Route path='programlearningoutcomes'>
+            <Route index element={<AllProgramLearningOutcomess />} />
+            <Route path='getall' element={<AllProgramLearningOutcomess />} />
+            <Route path='update' element={<UpdateProgramLearningOutcomes />} />
+            <Route path='create' element={<CreateProgramLearningOutcomes /> }/>
+          </Route>
+
+          <Route path="NotFound" element={<NotFound/>}/>
+
+        </Route>
+      )}
+      {isAuth && (
         <>
           {user.role === "Ministry" && (
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<NotFound />} />
 
-              {/* Competence / Компетенції */}
-              <Route path='competence'>
-                <Route index element={<AllCompetences />} />
-                <Route path='getall' element={<AllCompetences />} />
-                <Route path='update' element={<UpdateCompetence />} />
-                <Route path='create' element={<CreateCompetence />} />
-              </Route>
-
-              {/* ProgramLearningOutcomes / Програмні результати навчання */}
-              <Route path='programlearningoutcomes'>
-                <Route index element={<AllProgramLearningOutcomess />} />
-                <Route path='getall' element={<AllProgramLearningOutcomess />} />
-                <Route path='update' element={<UpdateProgramLearningOutcomes />} />
-                <Route path='create' element={<CreateProgramLearningOutcomes /> }/>
-              </Route>
-
+            {/* Specialty / Спеціальності */}
+            <Route path='specialty'>
+              <Route index element={<AllSpecialtys />} />
+              <Route path='getall' element={<AllSpecialtys />} />
+              <Route path='update' element={<UpdateProgramLearningOutcomes />} />
+              <Route path='create' element={<CreateProgramLearningOutcomes /> }/>
+            </Route>
+              
               <Route path="NotFound" element={<NotFound/>}/>
 
             </Route>
