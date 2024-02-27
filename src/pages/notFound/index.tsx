@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import "./index.css";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -20,9 +20,9 @@ const NotFound = () => {
           </h1>
         </div>
         <h2>We are sorry, but the page you requested was not found.</h2>
-        <Button variant="contained">
+        {/* <Button variant="contained">
           <Link to="/">Back home</Link>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
