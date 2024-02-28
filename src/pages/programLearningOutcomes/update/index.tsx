@@ -1,134 +1,121 @@
-// import { useFormik } from "formik";
-// import React, { useEffect } from "react";
-// import * as Yup from "yup";
-// import Button from "@mui/material/Button";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import TextField from "@mui/material/TextField";
-// import Box from "@mui/material/Box";
-// import Typography from "@mui/material/Typography";
-// import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { useActions } from "../../../hooks/useActions";
-// import { useTypedSelector } from "../../../hooks/useTypedSelector";
-// import { useState } from "react";
-// import { Navigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { Form, Input, Button, Row, Col, Typography } from "antd";
+import React, { useEffect } from "react";
+import * as Yup from "yup";
+import { useActions } from "../../../hooks/useActions";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { ArrowLeftOutlined } from '@ant-design/icons';
+const { Title } = Typography;
 
-
-// const validationSchema = Yup.object().shape({
-//     code: Yup.string()
-//         .required("Required"),
-//     name: Yup.string()
-//         .required("Required")
-//         .min(10, "Minimum length is 2 characters")
-//         .max(256, "Maximum length is 128 characters"),
-//     description: Yup.string()
-//         .required("Required")
-//         .max(1024, "Maximum length is 128 characters")
-// });
-
-// const defaultTheme = createTheme();
+const validationSchema = Yup.object().shape({
+    code: Yup.string()
+        .required("Required")
+        .max(16, "Maximum length is 16 characters"),
+    name: Yup.string()
+        .required("Required")
+        .min(1, "Minimum length is 1 characters")
+        .max(256, "Maximum length is 256 characters"),
+    description: Yup.string()
+        .required("Required")
+        .max(1024, "Maximum length is 1024 characters")
+});
 
 const UpdateProgramLearningOutcomes = () => {
-    return(<></>)
-    // const { UpdateProgramLearningOutcomesA, GetAllProgramLearningOutcomesA } = useActions();
-    // const [ isRedirect, setIsRedirect ] = useState(false);
-    // const { selectedProgramLearningOutcomes } = useTypedSelector((store) => store.ProgramLearningOutcomesReducer);
+    const { UpdateProgramLearningOutcomesA, GetAllProgramLearningOutcomesA } = useActions();
+    const [ isRedirect, setIsRedirect ] = useState(false);
+    const { selectedProgramLearningOutcomes } = useTypedSelector((store) => store.ProgramLearningOutcomesReducer);
 
-    // const formik = useFormik({
-    //     initialValues: {
-    //         id: selectedProgramLearningOutcomes?.id || "",
-    //         code: selectedProgramLearningOutcomes?.code || "",
-    //         name: selectedProgramLearningOutcomes?.name || "",
-    //         description: selectedProgramLearningOutcomes?.description || "",
-    //         appUserId: selectedProgramLearningOutcomes?.appUserId || ""
-    //     },
-    //     validationSchema: validationSchema,
-    //     onSubmit: (values) => {
-    //         UpdateProgramLearningOutcomesA(values);
-    //         //GetAllProgramLearningOutcomesA();
-    //         setIsRedirect(true);
-    //     },
-    // });
-    // useEffect(() => {
-    //     formik.setValues({
-    //         id: selectedProgramLearningOutcomes.id,
-    //         code: selectedProgramLearningOutcomes.code,
-    //         name: selectedProgramLearningOutcomes.name,
-    //         description: selectedProgramLearningOutcomes.description,
-    //         appUserId: selectedProgramLearningOutcomes.appUserId
-    //     });
-    // }, []);
-    // if(isRedirect)
-    // {
-    //     return <Navigate to="/dashboard/programlearningoutcomes"/>
-    // }else
-    // return (
-    //     <ThemeProvider theme={defaultTheme}>
-    //         <Container component="main" maxWidth="xs">
-    //             <CssBaseline />
-    //             <Box
-    //                 sx={{
-    //                     marginTop: 1,
-    //                     display: "flex",
-    //                     flexDirection: "column",
-    //                     alignItems: "center",
-    //                 }}
-    //             >
-    //                 <Typography component="h1" variant="h5">
-    //                     Оновлення програмних результатів навчання
-    //                 </Typography>
-    //                 <Box
-    //                     component="form"
-    //                     onSubmit={formik.handleSubmit}
-    //                     noValidate
-    //                     sx={{ mt: 1, display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}
-    //                 >
-    //                     <TextField
-    //                         margin="normal"
-    //                         id="code"
-    //                         label="Код"
-    //                         name="code"
-    //                         value={formik.values.code}
-    //                         onChange={formik.handleChange}
-    //                         onBlur={formik.handleBlur}
-    //                         error={formik.touched.code && Boolean(formik.errors.code)}
-    //                         fullWidth
-    //                     />
-    //                     <TextField
-    //                         margin="normal"
-    //                         id="name"
-    //                         label="Назва"
-    //                         name="name"
-    //                         value={formik.values.name}
-    //                         onChange={formik.handleChange}
-    //                         onBlur={formik.handleBlur}
-    //                         error={formik.touched.name && Boolean(formik.errors.name)}
-    //                         fullWidth
-    //                     />
-    //                     <TextField
-    //                         margin="normal"
-    //                         id="description"
-    //                         label="Опис"
-    //                         name="description"
-    //                         autoComplete="description"
-    //                         value={formik.values.description}
-    //                         onChange={formik.handleChange}
-    //                         onBlur={formik.handleBlur}
-    //                         error={formik.touched.description && Boolean(formik.errors.description)}
-    //                         fullWidth
-    //                     />
-    //                     <Button
-    //                         type="submit"
-    //                         variant="contained"
-    //                         sx={{ mt: 1, ml: 'auto' }}
-    //                     >
-    //                         Оновити
-    //                     </Button>
-    //                 </Box>
-    //             </Box>
-    //         </Container>
-    //     </ThemeProvider>
-    // );
+    const formik = useFormik({
+        initialValues: {
+            id: selectedProgramLearningOutcomes?.id || "",
+            code: selectedProgramLearningOutcomes?.code || "",
+            name: selectedProgramLearningOutcomes?.name || "",
+            description: selectedProgramLearningOutcomes?.description || "",
+            appUserId: selectedProgramLearningOutcomes?.appUserId || ""
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            UpdateProgramLearningOutcomesA(values);
+            //GetAllProgramLearningOutcomesA();
+            setIsRedirect(true);
+        },
+    });
+    useEffect(() => {
+        formik.setValues({
+            id: selectedProgramLearningOutcomes.id,
+            code: selectedProgramLearningOutcomes.code,
+            name: selectedProgramLearningOutcomes.name,
+            description: selectedProgramLearningOutcomes.description,
+            appUserId: selectedProgramLearningOutcomes.appUserId
+        });
+    }, []);
+    if(isRedirect)
+    {
+        return <Navigate to="/dashboard/programlearningoutcomes"/>
+    }else
+    return (
+        <Row justify="center" align="top" style={{ minHeight: "100vh" }}>
+            <Col span={8}>
+                <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
+                    Редагування компетенції
+                </Title>
+                <Form
+                    name="loginForm"
+                    initialValues={formik.initialValues}
+                    onFinish={formik.handleSubmit}
+                >
+                    <Form.Item
+                        name="code"
+                        validateStatus={formik.errors.code && "error"}
+                        // help={formik.errors.code}
+                    >
+                        <Input
+                            placeholder="Код"
+                            {...formik.getFieldProps("code")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="name"
+                        validateStatus={formik.errors.name && "error"}
+                        // help={formik.errors.name}
+                    >
+                        <Input
+                            placeholder="Назва"
+                            {...formik.getFieldProps("name")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="description"
+                        validateStatus={formik.errors.description && "error"}
+                        // help={formik.errors.description}
+                    >
+                        <Input
+                            placeholder="Опис"
+                            {...formik.getFieldProps("description")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <Link to={"/dashboard/competence/getall"}>
+                                <Button type="default">
+                                    <ArrowLeftOutlined />
+                                </Button>
+                            </Link>
+                            <Button type="primary" htmlType="submit">
+                                Відредагувати
+                            </Button>
+                        </div>
+                    </Form.Item>
+
+                </Form>
+            </Col>
+        </Row>
+    );
 };
 
 export default UpdateProgramLearningOutcomes;

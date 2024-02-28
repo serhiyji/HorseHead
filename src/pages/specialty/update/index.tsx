@@ -9,7 +9,6 @@ import { Link, Navigate } from "react-router-dom";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 
-
 const validationSchema = Yup.object().shape({
     code: Yup.string()
         .required("Required")
@@ -17,51 +16,56 @@ const validationSchema = Yup.object().shape({
     name: Yup.string()
         .required("Required")
         .min(1, "Minimum length is 1 characters")
-        .max(256, "Maximum length is 256 characters"),
-    description: Yup.string()
-        .required("Required")
-        .max(1024, "Maximum length is 1024 characters")
+        .max(256, "Maximum length is 256 characters")
 });
 
-const CreateCompetence = () => {
-    const { CreateCompetenceA, GetAllCompetenceA } = useActions();
+const UpdateSpecialty = () => {
+    const { UpdateSpecialtyA, GetAllSpecialtyA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
+    const { selectedSpecialty } = useTypedSelector((store) => store.SpecialtyReducer);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
     const formik = useFormik({
         initialValues: {
-            id: "",
-            code: "",
-            name: "",
-            description: "",
-            appUserId: user.Id,
+            id: selectedSpecialty?.id || "",
+            code: selectedSpecialty?.code || "",
+            name: selectedSpecialty?.name || ""
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            CreateCompetenceA(values);
-            //GetAllCompetenceA(1, 2, user.Id);
+        onSubmit: (values: any) => {
+            UpdateSpecialtyA(values);
+            //GetAllSpecialtyA(1, 10, user.Id);
             setIsRedirect(true);
         },
     });
+
+    useEffect(() => {
+        formik.setValues({
+            id: selectedSpecialty.id,
+            code: selectedSpecialty.code,
+            name: selectedSpecialty.name
+        });
+    }, []);
+
     if(isRedirect)
     {
-        return <Navigate to="/dashboard/competence"/>
+        return <Navigate to="/dashboard/specialty"/>
     }else
-    return (
+    return(
         <Row justify="center" align="top" style={{ minHeight: "100vh" }}>
             <Col span={8}>
                 <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
-                    Створення компетенції
+                    Редагування сцеціальності
                 </Title>
                 <Form
                     name="loginForm"
-                    initialValues={{ remember: true }}
+                    initialValues={formik.initialValues}
                     onFinish={formik.handleSubmit}
                 >
                     <Form.Item
                         name="code"
                         validateStatus={formik.errors.code && "error"}
-                        help={formik.errors.code}
+                        // help={formik.errors.code}
                     >
                         <Input
                             placeholder="Код"
@@ -72,7 +76,7 @@ const CreateCompetence = () => {
                     <Form.Item
                         name="name"
                         validateStatus={formik.errors.name && "error"}
-                        help={formik.errors.name}
+                        // help={formik.errors.name}
                     >
                         <Input
                             placeholder="Назва"
@@ -80,26 +84,15 @@ const CreateCompetence = () => {
                         />
                     </Form.Item>
 
-                    <Form.Item
-                        name="description"
-                        validateStatus={formik.errors.description && "error"}
-                        help={formik.errors.description}
-                    >
-                        <Input
-                            placeholder="Опис"
-                            {...formik.getFieldProps("description")}
-                        />
-                    </Form.Item>
-
                     <Form.Item>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Link to={"/dashboard/competence/getall"}>
+                            <Link to={"/dashboard/specialty/getall"}>
                                 <Button type="default">
                                     <ArrowLeftOutlined />
                                 </Button>
                             </Link>
                             <Button type="primary" htmlType="submit">
-                                Створити
+                                Відредагувати
                             </Button>
                         </div>
                     </Form.Item>
@@ -110,4 +103,4 @@ const CreateCompetence = () => {
     )
 };
 
-export default CreateCompetence;
+export default UpdateSpecialty;

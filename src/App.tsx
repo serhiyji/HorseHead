@@ -13,70 +13,72 @@ import AllProgramLearningOutcomess from './pages/programLearningOutcomes/getall'
 import CreateProgramLearningOutcomes from './pages/programLearningOutcomes/create';
 import UpdateProgramLearningOutcomes from './pages/programLearningOutcomes/update';
 import AllSpecialtys from './pages/specialty/getall';
+import CreateSpecialty from './pages/specialty/create';
+import UpdateSpecialty from './pages/specialty/update';
 
 function App() {
-  const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
+    const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
 
-  return (
-    <Routes>
-      {isAuth && (
-          <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<NotFound />} />
+    return (
+        <Routes>
+            {isAuth && (
+                <Route path="/dashboard" element={<DashboardLayout />}>
+                    <Route index element={<NotFound />} />
 
-          {/* Competence / Компетенції */}
-          <Route path='competence'>
-            <Route index element={<AllCompetences />} />
-            <Route path='getall' element={<AllCompetences />} />
-            <Route path='update' element={<UpdateCompetence />} />
-            <Route path='create' element={<CreateCompetence />} />
-          </Route>
+                    {/* Competence / Компетенції */}
+                    <Route path='competence'>
+                        <Route index element={<AllCompetences />} />
+                        <Route path='getall' element={<AllCompetences />} />
+                        <Route path='update' element={<UpdateCompetence />} />
+                        <Route path='create' element={<CreateCompetence />} />
+                    </Route>
 
-          {/* ProgramLearningOutcomes / Програмні результати навчання */}
-          <Route path='programlearningoutcomes'>
-            <Route index element={<AllProgramLearningOutcomess />} />
-            <Route path='getall' element={<AllProgramLearningOutcomess />} />
-            <Route path='update' element={<UpdateProgramLearningOutcomes />} />
-            <Route path='create' element={<CreateProgramLearningOutcomes /> }/>
-          </Route>
+                    {/* ProgramLearningOutcomes / Програмні результати навчання */}
+                    <Route path='programlearningoutcomes'>
+                        <Route index element={<AllProgramLearningOutcomess />} />
+                        <Route path='getall' element={<AllProgramLearningOutcomess />} />
+                        <Route path='update' element={<UpdateProgramLearningOutcomes />} />
+                        <Route path='create' element={<CreateProgramLearningOutcomes />} />
+                    </Route>
 
-          <Route path="NotFound" element={<NotFound/>}/>
+                    <Route path="NotFound" element={<NotFound />} />
 
-        </Route>
-      )}
-      {isAuth && (
-        <>
-          {user.role === "Ministry" && (
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              <Route index element={<NotFound />} />
+                </Route>
+            )}
+            {isAuth && (
+                <>
+                    {user.role === "Ministry" && (
+                        <Route path="/dashboard" element={<DashboardLayout />}>
+                            <Route index element={<NotFound />} />
 
-            {/* Specialty / Спеціальності */}
-            <Route path='specialty'>
-              <Route index element={<AllSpecialtys />} />
-              <Route path='getall' element={<AllSpecialtys />} />
-              <Route path='update' element={<UpdateProgramLearningOutcomes />} />
-              <Route path='create' element={<CreateProgramLearningOutcomes /> }/>
-            </Route>
-              
-              <Route path="NotFound" element={<NotFound/>}/>
+                            {/* Specialty / Спеціальності */}
+                            <Route path='specialty'>
+                                <Route index element={<AllSpecialtys />} />
+                                <Route path='getall' element={<AllSpecialtys />} />
+                                <Route path='update' element={<UpdateSpecialty />} />
+                                <Route path='create' element={<CreateSpecialty />} />
+                            </Route>
 
-            </Route>
-          )}
-          {user.role === "University" && (
-            <Route path="/dashboard" element={<DashboardLayout />}>
-              {/* <Route index element={<NotFound />} /> */}
-              <Route path="NotFound" element={<NotFound/>}/>
-            </Route>
-          )
-          }
-        </>
-      )}
-      
-      <Route path="/signin" element={<SignIn/>} />
-      <Route path="/dashboard" element={<SignIn />} />
-      <Route path='/registrationuniversity' element={<RegistrationUniversity/>} />
-      <Route path="*" element={<SignIn />} />
-    </Routes>
-  );
+                            <Route path="NotFound" element={<NotFound />} />
+
+                        </Route>
+                    )}
+                    {user.role === "University" && (
+                        <Route path="/dashboard" element={<DashboardLayout />}>
+                            {/* <Route index element={<NotFound />} /> */}
+                            <Route path="NotFound" element={<NotFound />} />
+                        </Route>
+                    )
+                    }
+                </>
+            )}
+
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/dashboard" element={<SignIn />} />
+            <Route path='/registrationuniversity' element={<RegistrationUniversity />} />
+            <Route path="*" element={<SignIn />} />
+        </Routes>
+    );
 }
 
 export default App;

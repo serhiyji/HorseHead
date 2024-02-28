@@ -1,134 +1,88 @@
-// import React from "react";
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
-// import Avatar from "@mui/material/Avatar";
-// import Button from "@mui/material/Button";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import TextField from "@mui/material/TextField";
-// import { Link, Navigate } from "react-router-dom";
-// import Grid from "@mui/material/Grid";
-// import Box from "@mui/material/Box";
-// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-// import Typography from "@mui/material/Typography";
-// import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { useActions } from "../../../hooks/useActions";
-// import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import React from "react";
+import { Form, Input, Button, Row, Col, Typography } from "antd";
+import { Link, Navigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useActions } from "../../../hooks/useActions";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import * as Yup from "yup";
 
-// const validationSchema = Yup.object().shape({
-//   email: Yup.string().email("Invalid email address").required("Required"),
-//   password: Yup.string()
-//     .min(8, "Password must be at least 8 characters")
-//     .required("Required"),
-// });
+const { Title } = Typography;
 
-// const defaultTheme = createTheme();
+const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email address").required("Required"),
+    password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Required"),
+});
 
-export default function SignIn() {
-  return(<></>)
-  // const { LoginUser } = useActions();
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  //   validationSchema: validationSchema,
-  //   onSubmit: (values) => {
-  //     var res = LoginUser(values);
-  //     console.log(res);
-  //   },
-  // });
-  
-  // const { isAuth } = useTypedSelector((store) => store.UserReducer);
-  // console.log(isAuth);
-  // if (isAuth) {
-  //   return <Navigate to="/dashboard" />;
-  // }
-  
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   const user = {
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   };
-  //   var res = LoginUser(user);
-  //   console.log(res);
-  // };
+const SignIn = () => {
+    const { LoginUser } = useActions();
+    const { isAuth } = useTypedSelector((store) => store.UserReducer);
 
-  // return (
-  //   <ThemeProvider theme={defaultTheme}>
-  //     <Container component="main" maxWidth="xs">
-  //       <CssBaseline />
-  //       <Box
-  //         sx={{
-  //           marginTop: 8,
-  //           display: "flex",
-  //           flexDirection: "column",
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-  //           <LockOutlinedIcon />
-  //         </Avatar>
-  //         <Typography component="h1" variant="h5">
-  //           Вхід
-  //         </Typography>
-  //         <Box
-  //           component="form"
-  //           onSubmit={formik.handleSubmit}
-  //           noValidate
-  //           sx={{ mt: 1 }}
-  //         >
-  //           <TextField
-  //             margin="normal"
-  //             fullWidth
-  //             id="email"
-  //             label="Електронна пошта"
-  //             name="email"
-  //             autoComplete="email"
-  //             autoFocus
-  //             value={formik.values.email}
-  //             onChange={formik.handleChange}
-  //             onBlur={formik.handleBlur}
-  //             error={formik.touched.email && Boolean(formik.errors.email)}
-  //             helperText={formik.touched.email && formik.errors.email}
-  //           />
-  //           <TextField
-  //             margin="normal"
-  //             fullWidth
-  //             name="password"
-  //             label="Пароль"
-  //             type="password"
-  //             id="password"
-  //             autoComplete="current-password"
-  //             value={formik.values.password}
-  //             onChange={formik.handleChange}
-  //             onBlur={formik.handleBlur}
-  //             error={formik.touched.password && Boolean(formik.errors.password)}
-  //             helperText={formik.touched.password && formik.errors.password}
-  //           />
-  //           <Button
-  //             type="submit"
-  //             fullWidth
-  //             variant="contained"
-  //             sx={{ mt: 3, mb: 2 }}
-  //           >
-  //             Увійти
-  //           </Button>
-  //           <Grid container>
-  //             <Grid item xs>
-  //               <Link to="/">Забули пароль?</Link>
-  //             </Grid>
-  //           </Grid>
-  //           <Grid container>
-  //             <Grid item xs>
-  //               <Link to="/registrationuniversity">Реєстрація для Університету</Link>
-  //             </Grid>
-  //           </Grid>
-  //         </Box>
-  //       </Box>
-  //     </Container>
-  //   </ThemeProvider>
-  // );
-}
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            LoginUser(values);
+        },
+    });
+
+    if (isAuth) {
+        return <Navigate to="/dashboard" />;
+    }
+
+    return (
+        <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
+            <Col span={8}>
+                <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
+                    Вхід
+                </Title>
+                <Form
+                    name="loginForm"
+                    initialValues={{ remember: true }}
+                    onFinish={formik.handleSubmit}
+                >
+                    <Form.Item
+                        name="email"
+                        validateStatus={formik.errors.email && "error"}
+                        help={formik.errors.email}
+                    >
+                        <Input
+                            placeholder="Email"
+                            {...formik.getFieldProps("email")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="password"
+                        validateStatus={formik.errors.password && "error"}
+                        help={formik.errors.password}
+                    >
+                        <Input.Password
+                            placeholder="Password"
+                            {...formik.getFieldProps("password")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <Button type="primary" htmlType="submit">
+                                Увійти
+                            </Button>
+                            <Link to={"/registrationuniversity"}>
+                                <Button type="default">
+                                    Зареєструвати університетську пошту
+                                </Button>
+                            </Link>
+                        </div>
+                    </Form.Item>
+                </Form>
+            </Col>
+        </Row>
+    );
+};
+
+export default SignIn;

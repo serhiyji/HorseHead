@@ -13,18 +13,16 @@ const { Title } = Typography;
 const validationSchema = Yup.object().shape({
     code: Yup.string()
         .required("Required")
+        .min(1, "Minimum length is 1 characters")
         .max(16, "Maximum length is 16 characters"),
     name: Yup.string()
         .required("Required")
         .min(1, "Minimum length is 1 characters")
         .max(256, "Maximum length is 256 characters"),
-    description: Yup.string()
-        .required("Required")
-        .max(1024, "Maximum length is 1024 characters")
 });
 
-const CreateCompetence = () => {
-    const { CreateCompetenceA, GetAllCompetenceA } = useActions();
+const CreateSpecialty = () => {
+    const { CreateSpecialtyA, GetAllSpecialtyA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
@@ -33,25 +31,23 @@ const CreateCompetence = () => {
             id: "",
             code: "",
             name: "",
-            description: "",
-            appUserId: user.Id,
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            CreateCompetenceA(values);
-            //GetAllCompetenceA(1, 2, user.Id);
+            CreateSpecialtyA(values);
+            //GetAllSpecialtyA(1, 2);
             setIsRedirect(true);
         },
     });
     if(isRedirect)
     {
-        return <Navigate to="/dashboard/competence"/>
+        return <Navigate to="/dashboard/specialty"/>
     }else
     return (
         <Row justify="center" align="top" style={{ minHeight: "100vh" }}>
             <Col span={8}>
                 <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
-                    Створення компетенції
+                    Створення спеціальності
                 </Title>
                 <Form
                     name="loginForm"
@@ -80,20 +76,9 @@ const CreateCompetence = () => {
                         />
                     </Form.Item>
 
-                    <Form.Item
-                        name="description"
-                        validateStatus={formik.errors.description && "error"}
-                        help={formik.errors.description}
-                    >
-                        <Input
-                            placeholder="Опис"
-                            {...formik.getFieldProps("description")}
-                        />
-                    </Form.Item>
-
                     <Form.Item>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Link to={"/dashboard/competence/getall"}>
+                            <Link to={"/dashboard/specialty/getall"}>
                                 <Button type="default">
                                     <ArrowLeftOutlined />
                                 </Button>
@@ -110,4 +95,4 @@ const CreateCompetence = () => {
     )
 };
 
-export default CreateCompetence;
+export default CreateSpecialty;

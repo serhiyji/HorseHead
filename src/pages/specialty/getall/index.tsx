@@ -57,7 +57,7 @@ const AllSpecialtys = () => {
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
                     <Link to="/dashboard/specialty/create" style={{ textDecoration: "none" }}>
                         <Button type="primary">
-                            Створити компетенцію
+                            Створити спеціальність
                         </Button>
                     </Link>
                 </div>
