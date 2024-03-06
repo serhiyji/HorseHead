@@ -9,7 +9,6 @@ import { Link, Navigate } from "react-router-dom";
 import { ArrowLeftOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 
-
 const validationSchema = Yup.object().shape({
     year: Yup.number()
         .required("Required")
@@ -25,43 +24,55 @@ const validationSchema = Yup.object().shape({
         .max(16, "Maximum length is 16 characters"),
 });
 
-const CreateStandartEducationalProgram = () => {
-    const { CreateStandartEducationalProgramA, GetAllStandartEducationalProgramA, GetAllProgramLearningOutcomesA } = useActions();
+const UpdateStandartEducationalProgram = () => {
+    const { UpdateStandartEducationalProgramA, GetAllStandartEducationalProgramA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
+    const { selectedStandartEducationalProgram } = useTypedSelector((store) => store.StandartEducationalProgramReducer);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
     const formik = useFormik({
         initialValues: {
-            year: 0,
-            name: "",
-            code: ""
+            id: selectedStandartEducationalProgram?.id || "",
+            year: selectedStandartEducationalProgram?.year || "",
+            name: selectedStandartEducationalProgram?.name || "",
+            code: selectedStandartEducationalProgram?.code || ""
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            CreateStandartEducationalProgramA(values);
-            //GetAllStandartEducationalProgramA(1, 2);
+        onSubmit: (values: any) => {
+            UpdateStandartEducationalProgramA(values);
+            //GetAllStandartEducationalProgramA(1, 10, user.Id);
             setIsRedirect(true);
         },
     });
+
+    useEffect(() => {
+        formik.setValues({
+            id: selectedStandartEducationalProgram.id,
+            year: selectedStandartEducationalProgram.year,
+            name: selectedStandartEducationalProgram.name,
+            code: selectedStandartEducationalProgram.code
+        });
+    }, []);
+
     if(isRedirect)
     {
         return <Navigate to="/dashboard/standartEducationalProgram"/>
     }else
-    return (
+    return(
         <Row justify="center" align="top" style={{ minHeight: "100vh" }}>
             <Col span={8}>
                 <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
-                    Створення стандарту освітньої програми
+                    Редагування стандарту освітньої програми
                 </Title>
                 <Form
                     name="loginForm"
-                    initialValues={{ remember: true }}
+                    initialValues={formik.initialValues}
                     onFinish={formik.handleSubmit}
                 >
                     <Form.Item
-                        name="year"
+                        name="year" 
                         validateStatus={formik.errors.year && "error"}
-                        help={formik.errors.year}
+                        // help={formik.errors.year}
                     >
                         <Input
                             placeholder="Рік"
@@ -72,7 +83,7 @@ const CreateStandartEducationalProgram = () => {
                     <Form.Item
                         name="name"
                         validateStatus={formik.errors.name && "error"}
-                        help={formik.errors.name}
+                        // help={formik.errors.name}
                     >
                         <Input
                             placeholder="Назва"
@@ -83,7 +94,7 @@ const CreateStandartEducationalProgram = () => {
                     <Form.Item
                         name="code"
                         validateStatus={formik.errors.code && "error"}
-                        help={formik.errors.code}
+                        // help={formik.errors.code}
                     >
                         <Input
                             placeholder="Код"
@@ -93,13 +104,13 @@ const CreateStandartEducationalProgram = () => {
 
                     <Form.Item>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Link to={"/dashboard/specialty/getall"}>
+                            <Link to={"/dashboard/competence/getall"}>
                                 <Button type="default">
                                     <ArrowLeftOutlined />
                                 </Button>
                             </Link>
                             <Button type="primary" htmlType="submit">
-                                Створити
+                                Відредагувати
                             </Button>
                         </div>
                     </Form.Item>
@@ -110,4 +121,4 @@ const CreateStandartEducationalProgram = () => {
     )
 };
 
-export default CreateStandartEducationalProgram;
+export default UpdateStandartEducationalProgram;

@@ -47,6 +47,7 @@ export const UpdateStandartEducationalProgramA = (standartEducationalProgram: an
 export const CreateStandartEducationalProgramA = (standartEducationalProgram: any) => {
     return async (dispatch: Dispatch<StandartEducationalProgramActions>) => {
         try {
+            console.log(standartEducationalProgram);
             await CreateStandartEducationalProgram(standartEducationalProgram);
             dispatch({
                 type: StandartEducationalProgramActionTypes.CREATE_STADDARTEDUCATIONALPROGRAM_SUCCESS, payload: { message: "StandartEducationalProgram has been added" }

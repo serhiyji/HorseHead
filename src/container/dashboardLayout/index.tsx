@@ -50,9 +50,6 @@ const DashboardLayout = () => {
                                 <Link to="/dashboard/programlearningoutcomes">Програмні результати навчання</Link>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <Link to="/dashboard/specialty">Спеціальність</Link>
-                            </Menu.Item>
-                            <Menu.Item key="4">
                                 <Link to="/dashboard/standartEducationalProgram">Стандарт міністерства</Link>
                             </Menu.Item>
                         </>

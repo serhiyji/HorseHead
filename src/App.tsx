@@ -13,6 +13,8 @@ import AllProgramLearningOutcomess from './pages/programLearningOutcomes/getall'
 import CreateProgramLearningOutcomes from './pages/programLearningOutcomes/create';
 import UpdateProgramLearningOutcomes from './pages/programLearningOutcomes/update';
 import AllStandartEducationalPrograms from './pages/standartEducationalProgram/getall';
+import CreateStandartEducationalProgram from './pages/standartEducationalProgram/create';
+import UpdateStandartEducationalProgram from './pages/standartEducationalProgram/update';
 
 function App() {
     const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -53,6 +55,8 @@ function App() {
                             <Route path='standartEducationalProgram'>
                                 <Route index element={<AllStandartEducationalPrograms />} />
                                 <Route path='getall' element={<AllStandartEducationalPrograms />} />
+                                <Route path='update' element={<UpdateStandartEducationalProgram />} />
+                                <Route path='create' element={<CreateStandartEducationalProgram />} />
                             </Route>
 
                             <Route path="NotFound" element={<NotFound />} />

@@ -30,7 +30,6 @@ const CreateCompetence = () => {
 
     const formik = useFormik({
         initialValues: {
-            id: "",
             code: "",
             name: "",
             description: "",
