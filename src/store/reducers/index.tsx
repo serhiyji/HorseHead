@@ -1,15 +1,15 @@
 import { combineReducers } from "redux";
 import UserReducer from "./userReducer"; 
 import CompetenceReducer from "./competenceReducer";
-import ProgramLearningOutcomesReducer from "./programLearningOutcomesReducers";
-import SpecialtyReducer from "./specialtyReducer";
+import ProgramLearningOutcomesReducer from "./programLearningOutcomesReducer";
+import StandartEducationalProgramReducer from "./standartEducationalProgramReducer";
 
 
 export const rootReducer = combineReducers({
     UserReducer,
     CompetenceReducer,
     ProgramLearningOutcomesReducer,
-    SpecialtyReducer
+    StandartEducationalProgramReducer
 })
 
 export type  RootState = ReturnType<typeof rootReducer>;

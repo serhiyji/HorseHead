@@ -1,4 +1,4 @@
-import { ProgramLearningOutcomesState, ProgramLearningOutcomesActions, ProgramLearningOutcomesActionTypes } from "../../reducers/programLearningOutcomesReducers/types"
+import { ProgramLearningOutcomesState, ProgramLearningOutcomesActions, ProgramLearningOutcomesActionTypes } from "../../reducers/programLearningOutcomesReducer/types"
 
 import { Dispatch } from "redux"
 

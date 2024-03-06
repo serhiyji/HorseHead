@@ -11,31 +11,39 @@ const { Title } = Typography;
 
 
 const validationSchema = Yup.object().shape({
-    code: Yup.string()
+    year: Yup.string()
+        .required("Required"),
+    name: Yup.string()
+        .required("Required")
+        .min(1, "Minimum length is 1 characters")
+        .max(256, "Maximum length is 256 characters"),
+    specialty: Yup.string()
         .required("Required")
         .min(1, "Minimum length is 1 characters")
         .max(16, "Maximum length is 16 characters"),
-    name: Yup.string()
+    specialtyname: Yup.string()
         .required("Required")
         .min(1, "Minimum length is 1 characters")
         .max(256, "Maximum length is 256 characters"),
 });
 
-const CreateSpecialty = () => {
-    const { CreateSpecialtyA, GetAllSpecialtyA } = useActions();
+const CreateStandartEducationalProgram = () => {
+    const { CreateStandartEducationalProgramA, GetAllStandartEducationalProgramA, GetAllProgramLearningOutcomesA } = useActions();
     const [ isRedirect, setIsRedirect ] = useState(false);
     const { user } = useTypedSelector((score) => score.UserReducer);
 
     const formik = useFormik({
         initialValues: {
             id: "",
-            code: "",
+            year: "",
             name: "",
+            specialty: "",
+            specialtyname: "",
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            CreateSpecialtyA(values);
-            //GetAllSpecialtyA(1, 2);
+            CreateStandartEducationalProgramA(values);
+            //GetAllStandartEducationalProgramA(1, 2);
             setIsRedirect(true);
         },
     });
@@ -47,7 +55,7 @@ const CreateSpecialty = () => {
         <Row justify="center" align="top" style={{ minHeight: "100vh" }}>
             <Col span={8}>
                 <Title level={3} style={{ textAlign: "center", marginBottom: 20 }}>
-                    Створення спеціальності
+                    Створення стандарту освітньої програми
                 </Title>
                 <Form
                     name="loginForm"
@@ -55,13 +63,13 @@ const CreateSpecialty = () => {
                     onFinish={formik.handleSubmit}
                 >
                     <Form.Item
-                        name="code"
-                        validateStatus={formik.errors.code && "error"}
-                        help={formik.errors.code}
+                        name="year"
+                        validateStatus={formik.errors.year && "error"}
+                        help={formik.errors.year}
                     >
                         <Input
-                            placeholder="Код"
-                            {...formik.getFieldProps("code")}
+                            placeholder="Рік"
+                            {...formik.getFieldProps("coyearde")}
                         />
                     </Form.Item>
 
@@ -73,6 +81,28 @@ const CreateSpecialty = () => {
                         <Input
                             placeholder="Назва"
                             {...formik.getFieldProps("name")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="specialty"
+                        validateStatus={formik.errors.specialty && "error"}
+                        help={formik.errors.specialty}
+                    >
+                        <Input
+                            placeholder="Код спеціальності"
+                            {...formik.getFieldProps("specialty")}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="specialtyname"
+                        validateStatus={formik.errors.specialtyname && "error"}
+                        help={formik.errors.specialtyname}
+                    >
+                        <Input
+                            placeholder="Повна назва спеціальності"
+                            {...formik.getFieldProps("specialtyname")}
                         />
                     </Form.Item>
 
@@ -95,4 +125,4 @@ const CreateSpecialty = () => {
     )
 };
 
-export default CreateSpecialty;
+export default CreateStandartEducationalProgram;

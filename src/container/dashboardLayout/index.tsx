@@ -53,7 +53,7 @@ const DashboardLayout = () => {
                                 <Link to="/dashboard/specialty">Спеціальність</Link>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <Link to="">Стандарт міністерства</Link>
+                                <Link to="/dashboard/standartEducationalProgram">Стандарт міністерства</Link>
                             </Menu.Item>
                         </>
                     )}

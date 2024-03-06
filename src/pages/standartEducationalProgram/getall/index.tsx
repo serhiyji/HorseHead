@@ -6,19 +6,20 @@ import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Navigate } from "react-router-dom";
 
-interface SpecialtyData {
+interface StandartEducationalProgramData {
     id: number,
-    code: string
+    year: string
     name: string,
+    specialtyFullName:string
 }
 
-const AllSpecialtys = () => {
-    const { GetAllSpecialtyA, DeleteSpecialtyA, SetSelectedSpecialty } = useActions();
+const AllStandartEducationalPrograms = () => {
+    const { GetAllStandartEducationalProgramA, DeleteStandartEducationalProgramA, SetSelectedStandartEducationalProgram } = useActions();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [isRedirect, setIsRedirect] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const { allSpecialty, pageNumber, pageSize, totalCount, countPages } = useTypedSelector((store) => store.SpecialtyReducer);
+    const { allStandartEducationalProgram, pageNumber, pageSize, totalCount, countPages } = useTypedSelector((store) => store.StandartEducationalProgramReducer);
 
     const handleOpenModal = (id: number) => {
         setSelectedId(id);
@@ -31,18 +32,18 @@ const AllSpecialtys = () => {
 
     const handleDelete = () => {
         if (selectedId !== null) {
-            DeleteSpecialtyA(selectedId);
+            DeleteStandartEducationalProgramA(selectedId);
             setIsModalOpen(false);
         }
     };
 
-    const handleUpdate = (specialty: SpecialtyData) => {
-        SetSelectedSpecialty(specialty);
+    const handleUpdate = (standartEducationalProgram: StandartEducationalProgramData) => {
+        SetSelectedStandartEducationalProgram(standartEducationalProgram);
         setIsRedirect(true);
     };
 
     useEffect(() => {
-        GetAllSpecialtyA(currentPage, 2,);
+        GetAllStandartEducationalProgramA(currentPage, 2,);
     }, [currentPage]);
 
     const handlePageChange = (page: number) => {
@@ -50,28 +51,29 @@ const AllSpecialtys = () => {
     };
 
     if (isRedirect) {
-        return <Navigate to="/dashboard/specialty/update" />;
+        return <Navigate to="/dashboard/standartEducationalProgram/update" />;
     } else {
         return (
             <div style={{ padding: "20px" }}>
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
-                    <Link to="/dashboard/specialty/create" style={{ textDecoration: "none" }}>
+                    <Link to="/dashboard/standartEducationalProgram/create" style={{ textDecoration: "none" }}>
                         <Button type="primary">
-                            Створити спеціальність
+                            Створити стандарт освітньої програми
                         </Button>
                     </Link>
                 </div>
                 <Space direction="vertical" style={{ width: "100%" }}>
-                    {allSpecialty.map((specialty: SpecialtyData) => (
-                        <Card key={specialty.id} style={{ width: "100%" }}>
+                    {allStandartEducationalProgram.map((standartEducationalProgram: StandartEducationalProgramData) => (
+                        <Card key={standartEducationalProgram.id} style={{ width: "100%" }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <h3>{specialty.code}</h3>
+                                <h3>{standartEducationalProgram.name}</h3>
                                 <div>
-                                    <Button type="text" icon={<DeleteOutlined />} onClick={() => handleOpenModal(specialty.id)} />
-                                    <Button type="text" icon={<EditOutlined />} onClick={() => handleUpdate(specialty)} />
+                                    <Button type="text" icon={<DeleteOutlined />} onClick={() => handleOpenModal(standartEducationalProgram.id)} />
+                                    <Button type="text" icon={<EditOutlined />} onClick={() => handleUpdate(standartEducationalProgram)} />
                                 </div>
                             </div>
-                            <h3 style={{ marginTop: "1px" }}>{specialty.name}</h3>
+                            <h3 style={{ marginTop: "1px" }}>{standartEducationalProgram.year}</h3>
+                            <h3 style={{ marginTop: "1px" }}>{standartEducationalProgram.specialtyFullName}</h3>
                         </Card>
                     ))}
                 </Space>
@@ -102,4 +104,4 @@ const AllSpecialtys = () => {
     }
 }
 
-export default AllSpecialtys;
+export default AllStandartEducationalPrograms;

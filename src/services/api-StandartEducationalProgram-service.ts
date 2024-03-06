@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL: "https://localhost:5001/api/Specialty",
+    baseURL: "https://localhost:5001/api/StandartEducationalProgram",
     headers: {
         "Content-Type": "application/json"
     }
@@ -75,17 +75,17 @@ const requests = {
     post: (url: string, body?: any) => instance.post(url, body).then().then(responseBody)
 }
 
-const Specialty = {
+const StandartEducationalProgram = {
     getall: (page: number, pageSize: number) => requests.get("getall?page=" + page + "&pageSize=" + pageSize),
     getbyid: (id: number) => requests.get("getbyid?id=" + id),
 
-    create: (specialty: any) => requests.post("create", specialty),
-    update: (specialty: any) => requests.post("update", specialty),
+    create: (standartEducationalProgram: any) => requests.post("create", standartEducationalProgram),
+    update: (standartEducationalProgram: any) => requests.post("update", standartEducationalProgram),
     delete: (id: number) => requests.post("delete", id),
 }
 
-export async function GetAllSpecialty(page: number, pageSize: number) {
-    const data = await Specialty.getall(page, pageSize)
+export async function GetAllStandartEducationalProgram(page: number, pageSize: number) {
+    const data = await StandartEducationalProgram.getall(page, pageSize)
         .then((response) => {
             return {
                 response
@@ -97,8 +97,8 @@ export async function GetAllSpecialty(page: number, pageSize: number) {
     return data
 }
 
-export async function GetByIdSpecialty(id: number) {
-    const data = await Specialty.getbyid(id)
+export async function GetByIdStandartEducationalProgram(id: number) {
+    const data = await StandartEducationalProgram.getbyid(id)
         .then((response) => {
             return {
                 response
@@ -110,8 +110,8 @@ export async function GetByIdSpecialty(id: number) {
     return data
 }
 
-export async function CreateSpecialty(specialty: any) {
-    const data = await Specialty.create(specialty)
+export async function CreateStandartEducationalProgram(standartEducationalProgram: any) {
+    const data = await StandartEducationalProgram.create(standartEducationalProgram)
         .then((response) => {
             return {
                 response
@@ -123,8 +123,8 @@ export async function CreateSpecialty(specialty: any) {
     return data
 }
 
-export async function UpdateSpecialty(specialty: any) {
-    const data = await Specialty.update(specialty)
+export async function UpdateStandartEducationalProgram(standartEducationalProgram: any) {
+    const data = await StandartEducationalProgram.update(standartEducationalProgram)
         .then((response) => {
             return {
                 response
@@ -136,9 +136,9 @@ export async function UpdateSpecialty(specialty: any) {
     return data
 }
 
-export async function DeleteSpecialty(id: number) {
+export async function DeleteStandartEducationalProgram(id: number) {
     console.log(id + "DEL3");
-    const data = await Specialty.delete(id)
+    const data = await StandartEducationalProgram.delete(id)
         .then((response) => {
             return {
                 response
@@ -150,15 +150,15 @@ export async function DeleteSpecialty(id: number) {
     return data
 }
 
-export async function setSelectedSpecialty(specialty:any) {
-    specialty = JSON.stringify(specialty);
-    window.localStorage.setItem("selectedSpecialty", specialty);
+export async function setSelectedStandartEducationalProgram(standartEducationalProgram:any) {
+    standartEducationalProgram = JSON.stringify(standartEducationalProgram);
+    window.localStorage.setItem("selectedStandartEducationalProgram", standartEducationalProgram);
 }
 
-export function getSelectedSpecialty() {
-    let selectedSpecialty: any = window.localStorage.getItem("selectedSpecialty");
-    selectedSpecialty = JSON.parse(selectedSpecialty);
-    return selectedSpecialty;
+export function getSelectedStandartEducationalProgram() {
+    let selectedStandartEducationalProgram: any = window.localStorage.getItem("selectedStandartEducationalProgram");
+    selectedStandartEducationalProgram = JSON.parse(selectedStandartEducationalProgram);
+    return selectedStandartEducationalProgram;
 }
 
 export function refreshAccessToken() {

@@ -12,9 +12,7 @@ import CreateCompetence from './pages/competence/create';
 import AllProgramLearningOutcomess from './pages/programLearningOutcomes/getall';
 import CreateProgramLearningOutcomes from './pages/programLearningOutcomes/create';
 import UpdateProgramLearningOutcomes from './pages/programLearningOutcomes/update';
-import AllSpecialtys from './pages/specialty/getall';
-import CreateSpecialty from './pages/specialty/create';
-import UpdateSpecialty from './pages/specialty/update';
+import AllStandartEducationalPrograms from './pages/standartEducationalProgram/getall';
 
 function App() {
     const { isAuth, user } = useTypedSelector((store) => store.UserReducer);
@@ -51,12 +49,10 @@ function App() {
                         <Route path="/dashboard" element={<DashboardLayout />}>
                             <Route index element={<NotFound />} />
 
-                            {/* Specialty / Спеціальності */}
-                            <Route path='specialty'>
-                                <Route index element={<AllSpecialtys />} />
-                                <Route path='getall' element={<AllSpecialtys />} />
-                                <Route path='update' element={<UpdateSpecialty />} />
-                                <Route path='create' element={<CreateSpecialty />} />
+                            {/* StandartEducationalProgram / Стандарти освітніх програм */}
+                            <Route path='standartEducationalProgram'>
+                                <Route index element={<AllStandartEducationalPrograms />} />
+                                <Route path='getall' element={<AllStandartEducationalPrograms />} />
                             </Route>
 
                             <Route path="NotFound" element={<NotFound />} />
